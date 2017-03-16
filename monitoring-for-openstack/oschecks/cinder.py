@@ -40,7 +40,7 @@ def _check_cinder_api():
 
     def quotas_list():
         try:
-            return client.quotas.get(options.os_tenant_name)
+            return client.quotas.defaults(options.os_tenant_name)
         except Exception as ex:
             utils.critical(str(ex))
 

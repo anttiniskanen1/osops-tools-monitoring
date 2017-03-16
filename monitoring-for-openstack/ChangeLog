@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* Checks for nova instance count, nova floating ip count
 * Removes unnecessary utf-8 encoding
 * Catch more exceptions
 * State source code encoding

@@ -72,6 +72,76 @@ default_flavor_name = 'm1.tiny'
 default_instance_name = 'monitoring_test'
 
 
+def _check_nova_instance_count():
+    nova = utils.Nova()
+    nova.add_argument('-w', dest='warning', type=int, default=5,
+                      help='Warning timeout for nova APIs calls')
+    nova.add_argument('-c', dest='critical', type=int, default=10,
+                      help='Critical timeout for nova APIs calls')
+    options, args, client = nova.setup()
+
+    def instances_list():
+        try:
+            return list(client.servers.list())
+        except Exception as ex:
+            utils.critical(str(ex))
+
+    elapsed, instances = utils.timeit(instances_list)
+    if not instances:
+        utils.critical("Unable to contact nova API.")
+
+    if elapsed > options.critical:
+        utils.critical("Get instances took more than %d seconds, "
+                       "it's too long.|response_time=%d" %
+                       (options.critical, elapsed))
+    elif elapsed > options.warning:
+        utils.warning("Get instances took more than %d seconds, "
+                      "it's too long.|response_time=%d" %
+                      (options.warning, elapsed))
+    else:
+        utils.ok("Get instances, nova API is working: "
+                 "list %d instances in %d seconds.|response_time=%d instance_count=%d" %
+                 (len(instances), elapsed, elapsed, len(instances)))
+
+def check_nova_instance_count():
+    utils.safe_run(_check_nova_instance_count)
+
+
+def _check_nova_floating_ip_count():
+    nova = utils.Nova()
+    nova.add_argument('-w', dest='warning', type=int, default=5,
+                      help='Warning timeout for nova APIs calls')
+    nova.add_argument('-c', dest='critical', type=int, default=10,
+                      help='Critical timeout for nova APIs calls')
+    options, args, client = nova.setup()
+
+    def floating_ips_list():
+        try:
+            return list(client.floating_ips.list())
+        except Exception as ex:
+            utils.critical(str(ex))
+
+    elapsed, floating_ips = utils.timeit(floating_ips_list)
+    if not floating_ips:
+        utils.critical("Unable to contact nova API.")
+
+    if elapsed > options.critical:
+        utils.critical("Get floating IPs took more than %d seconds, "
+                       "it's too long.|response_time=%d" %
+                       (options.critical, elapsed))
+    elif elapsed > options.warning:
+        utils.warning("Get floating IPs took more than %d seconds, "
+                      "it's too long.|response_time=%d" %
+                      (options.warning, elapsed))
+    else:
+        utils.ok("Get floating IPs, nova API is working: "
+                 "list %d floating IPs in %d seconds.|response_time=%d floating_ip_count=%d" %
+                 (len(floating_ips), elapsed, elapsed, len(floating_ips)))
+
+def check_nova_floating_ip_count():
+    utils.safe_run(_check_nova_floating_ip_count)
+
+
 class Novautils(object):
     def __init__(self, nova_client):
         self.nova_client = nova_client

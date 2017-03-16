@@ -1,0 +1,46 @@
+CHANGES
+=======
+
+* Removes unnecessary utf-8 encoding
+* Catch more exceptions
+* State source code encoding
+* Added ceph user to ceph commands
+* Don't throw traceback for connection problems
+* Ceilometer checks fixes
+* Neutron Plugin Arguments unified to meet the neutron API
+* Fix permissons for some files of monitoring-for-openstack
+* Remove "encoding: utf-8" from monitoring-for-openstack files
+* Improve README file for monitoring-for-openstack
+* oscheck-pacemaker Improvements
+* flake8 everything
+* Cleanup setup.cfg/tox.ini file
+* Rename router to network
+* Nova Plugin Arguments unified to meet the nova API
+* Fixed oschecks-check_keystone_api
+* python-novaclient-3.1.0+ compatibility
+* Nagios check for recent Ceilometer updates
+* Add nagios check for remaining IP addresses
+* Fixes sdist generation
+* Client compatibility fix
+* Correct plugins installation path to libexec
+* Correct path to README.md in setup.cfg file
+* README: add Launchpad link
+* Update README with details on how to contribute to monitoring repo
+* Fix for changes in the output of ceph 1.3+ 'df' command
+* Switch to the value format for keystone check
+* Remove deprecation warning from keystone checks
+* oschecks/utils: update novaclient to use 2.1 version
+* oschecks/utils: update glanceclient usage
+* Cleanup test-requirements
+* Moved monitoring-for-openstack to it's own folder
+* Spelling fixes
+* Import monitoring-for-openstack
+* bashate: do not check contrib directory
+* Cleanup errors in shell scripts identified by bashate
+* Add bashate test environment for shell scripts
+* Add .gitreview file
+* Added some basic nagios-style plugins
+* add link to separate Rackspace Maas plugins repo
+* Add Keystone API check to sensu-plugins
+* Create README.md
+* Initial commit
